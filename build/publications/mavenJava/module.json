@@ -1,0 +1,123 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "dk.mosberg",
+    "module": "moddinghelperapi",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.2.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "moddinghelperapi-1.0.0.jar",
+          "url": "moddinghelperapi-1.0.0.jar",
+          "size": 1215409,
+          "sha512": "9e5a9af13c8aef60d93ada5fc6c91cec3c103da1ecdca75157df5e23c1f4359a5784858580eb08bd32e57dfde05584ab1adbc86f4338a05fa5862e81d3f8e945",
+          "sha256": "6598bcb23df3c0405afcd73279179e4214354b2ad3774feebaf121c0dbcac697",
+          "sha1": "360d61797cad0e9e290193d1a09632be599530a3",
+          "md5": "a9c97a40203913d61f455d6a1a7cbfd7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.google.code.gson",
+          "module": "gson",
+          "version": {
+            "requires": "2.13.2"
+          }
+        },
+        {
+          "group": "net.fabricmc",
+          "module": "fabric-loader",
+          "version": {
+            "requires": "0.18.4"
+          }
+        },
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-api",
+          "version": {
+            "requires": "0.140.2+1.21.11"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "moddinghelperapi-1.0.0.jar",
+          "url": "moddinghelperapi-1.0.0.jar",
+          "size": 1215409,
+          "sha512": "9e5a9af13c8aef60d93ada5fc6c91cec3c103da1ecdca75157df5e23c1f4359a5784858580eb08bd32e57dfde05584ab1adbc86f4338a05fa5862e81d3f8e945",
+          "sha256": "6598bcb23df3c0405afcd73279179e4214354b2ad3774feebaf121c0dbcac697",
+          "sha1": "360d61797cad0e9e290193d1a09632be599530a3",
+          "md5": "a9c97a40203913d61f455d6a1a7cbfd7"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "moddinghelperapi-1.0.0-sources.jar",
+          "url": "moddinghelperapi-1.0.0-sources.jar",
+          "size": 926717,
+          "sha512": "ebc80bbc2ef876e7312c8f4c5c1c46a49656e5d6c4c76e247057aeb0371a7c6bb58a50fb4019e9e64991ba9d36f712bb381d79370acca42f9ecadf6a63f76bed",
+          "sha256": "050b0ac8e030bc9da1d8ab9ff1a753d835d079792b716754b50e3ce83427b785",
+          "sha1": "501d56fd52beb69c562146fab6e11d8c075f9dcf",
+          "md5": "fce12ccc3d9eaea9f096c4524f5ea170"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "moddinghelperapi-1.0.0-javadoc.jar",
+          "url": "moddinghelperapi-1.0.0-javadoc.jar",
+          "size": 310114,
+          "sha512": "91f9591ea542fc23666e8d9d6e3a13fe6a06971c31ea196d5e2f352604b323bd2132d59236a7553e39bac405d90bc6469f0989bec00999b26613e44008c6946d",
+          "sha256": "4510f96827993ef8201a9e644d09bcadf9b022726576186ca2a4b6ce14ea0d17",
+          "sha1": "25ff700a3f16d1b9339ee3697bedff56a0f2cb27",
+          "md5": "d672eb50cca0ccebbbe0e5d3963899de"
+        }
+      ]
+    }
+  ]
+}
