@@ -137,8 +137,10 @@ public final class ParticleBuilder {
      */
     @NotNull
     public ParticleBuilder spawn() {
-        // In 1.21.11, use ServerWorld.spawnParticles or packet-based approach
-        // This is a simplified implementation
+        if (world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+            serverWorld.spawnParticles(particleEffect, x, y, z, count, offsetX, offsetY, offsetZ,
+                    speed);
+        }
         return this;
     }
 
@@ -152,8 +154,7 @@ public final class ParticleBuilder {
      */
     @NotNull
     public ParticleBuilder spawnClient() {
-        // Particle spawning implementation for 1.21.11
-        return this;
+        return spawn();
     }
 
     /**

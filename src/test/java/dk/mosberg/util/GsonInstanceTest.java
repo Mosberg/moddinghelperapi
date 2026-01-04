@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 1.0.0
  */
+@SuppressWarnings("DataFlowIssue")
 class GsonInstanceTest {
 
     @Test

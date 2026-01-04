@@ -33,7 +33,7 @@ public final class CacheHelper {
      * @param <K> the key type
      * @param <V> the value type
      */
-    public static class TimedCache<K, V extends Object> {
+    public static class TimedCache<K, V> {
         private static class CacheEntry<V> {
             @Nullable
             final V value;
@@ -78,6 +78,7 @@ public final class CacheHelper {
          * @param key the cache key
          * @return the cached value, or null if expired or not found
          */
+        @SuppressWarnings("null")
         @Nullable
         public V get(@NotNull K key) {
             var entry = cache.get(key);
@@ -150,7 +151,7 @@ public final class CacheHelper {
      *
      * @param <T> the value type
      */
-    public static class ValueCache<T extends Object> {
+    public static class ValueCache<T> {
         @Nullable
         private T value;
         @Nullable
@@ -163,6 +164,7 @@ public final class CacheHelper {
          *
          * @param expirationMs the expiration time in milliseconds (-1 for no expiration)
          */
+        @SuppressWarnings("null")
         public ValueCache(long expirationMs) {
             this.expirationMs = expirationMs;
         }
@@ -185,6 +187,7 @@ public final class CacheHelper {
          *
          * @return the cached value, or null if not set or expired
          */
+        @SuppressWarnings("null")
         @Nullable
         public T get() {
             if (!isSet) {
@@ -217,6 +220,7 @@ public final class CacheHelper {
         /**
          * Clears the cached value.
          */
+        @SuppressWarnings("null")
         public void clear() {
             value = null;
             expiryTime = null;

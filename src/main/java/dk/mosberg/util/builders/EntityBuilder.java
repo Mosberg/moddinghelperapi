@@ -2,9 +2,9 @@ package dk.mosberg.util.builders;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -161,15 +161,24 @@ public final class EntityBuilder<T extends Entity> {
      *
      * @return the spawned entity, or null if spawn failed
      */
-    @Nullable
-    public T spawn() {
-        // In 1.21.11, entity creation requires ServerWorld context
-        // This is a simplified placeholder implementation
-        if (world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
-            // Entity creation requires more complex initialization in 1.21.11
-            return null;
+    @SuppressWarnings("null")
+    @NotNull
+    public java.util.Optional<T> spawn() {
+        if (!(world instanceof net.minecraft.server.world.ServerWorld serverWorld)) {
+            return java.util.Optional.empty();
         }
-        return null;
+
+        // Basic spawn flow; may need customization per entity type in 1.21.11
+        T entity = (T) entityType.create(serverWorld, SpawnReason.SPAWN_ITEM_USE);
+        if (entity == null) {
+            return java.util.Optional.empty();
+        }
+
+        entity.refreshPositionAndAngles(x, y, z, yaw, pitch);
+        entity.setVelocity(velocityX, velocityY, velocityZ);
+
+        boolean spawned = serverWorld.spawnEntity(entity);
+        return spawned ? java.util.Optional.of(entity) : java.util.Optional.empty();
     }
 
     /**
