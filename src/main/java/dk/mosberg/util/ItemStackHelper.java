@@ -101,4 +101,98 @@ public final class ItemStackHelper {
         }
         return stack.getMaxCount() - stack.getCount();
     }
+
+    /**
+     * Gets the durability of an item (max durability - current damage).
+     *
+     * <p>
+     * For items without durability, returns -1.
+     *
+     * @param stack the ItemStack
+     * @return the current durability, or -1 if not applicable
+     */
+    public static int getDurability(@NotNull ItemStack stack) {
+        if (!stack.isDamaged()) {
+            return stack.getMaxDamage();
+        }
+        return stack.getMaxDamage() - stack.getDamage();
+    }
+
+    /**
+     * Gets the maximum durability of an item.
+     *
+     * @param stack the ItemStack
+     * @return the maximum durability, or 0 if not applicable
+     */
+    public static int getMaxDurability(@NotNull ItemStack stack) {
+        return stack.getMaxDamage();
+    }
+
+    /**
+     * Checks if an item is at full durability.
+     *
+     * @param stack the ItemStack
+     * @return true if not damaged or not damageable
+     */
+    public static boolean isFullDurability(@NotNull ItemStack stack) {
+        return !stack.isDamaged();
+    }
+
+    /**
+     * Repairs an item by reducing its damage.
+     *
+     * @param stack the ItemStack
+     * @param amount the amount of durability to restore
+     */
+    public static void repair(@NotNull ItemStack stack, int amount) {
+        int newDamage = Math.max(0, stack.getDamage() - amount);
+        stack.setDamage(newDamage);
+    }
+
+    /**
+     * Damages an item.
+     *
+     * @param stack the ItemStack
+     * @param amount the amount of damage to apply
+     */
+    public static void damage(@NotNull ItemStack stack, int amount) {
+        int newDamage = Math.min(stack.getMaxDamage(), stack.getDamage() + amount);
+        stack.setDamage(newDamage);
+    }
+
+    /**
+     * Checks if two items are of the same type (ignoring count and NBT).
+     *
+     * <p>
+     * This is already provided by the isSameItem method, so this is an alias for convenience when
+     * dealing with more granular item matching.
+     *
+     * @param stack1 the first ItemStack
+     * @param stack2 the second ItemStack
+     * @return true if both stacks contain the same item
+     */
+    public static boolean canStack(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
+        return isSameItem(stack1, stack2);
+    }
+
+    /**
+     * Gets the display name of an item.
+     *
+     * @param stack the ItemStack
+     * @return the display name or the item's default name
+     */
+    @NotNull
+    public static String getDisplayName(@NotNull ItemStack stack) {
+        return stack.getName().getString();
+    }
+
+    /**
+     * Checks if an item has custom NBT data.
+     *
+     * @param stack the ItemStack
+     * @return true if the item has custom NBT data
+     */
+    public static boolean hasCustomNBT(@NotNull ItemStack stack) {
+        return !stack.getComponents().isEmpty();
+    }
 }
