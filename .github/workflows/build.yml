@@ -1,30 +1,66 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# ═════════════════════════════════════════════════════════════════════════════════
+# Automated Build & Test Pipeline
+# ═════════════════════════════════════════════════════════════════════════════════
+# Triggers: Every push to any branch and all pull requests
+# Purpose: Catch compilation errors, test failures, and platform incompatibilities
+# Cost: Minimal (uses GitHub Actions free tier for public repos)
 
 name: build
 on: [pull_request, push]
 
+# Permissions for workflow to access repository
+permissions:
+  contents: read
+  checks: write
+
 jobs:
   build:
+    # Ubuntu 24.04: Latest LTS; includes Java 21, minimal bloat
     runs-on: ubuntu-24.04
+
     steps:
+      # 1. Get repository code
       - name: checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for better commit context
+
+      # 2. Validate Gradle Wrapper integrity (prevents compromised builds)
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
+
+      # 3. Setup Java 21 (required for Minecraft 1.21.11 + Fabric)
       - name: setup jdk
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'microsoft'
+          java-version: "21"
+          distribution: "microsoft" # Microsoft JDK is lightweight & open-source
+          cache: "gradle" # Caches ~/.gradle (speeds up repeated builds by ~40%)
+
+      # 4. Make Gradle wrapper executable (Linux requirement)
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: build
-        run: ./gradlew build
+
+      # 5. Build, compile, and run all tests
+      # Outputs: Compiled JARs, test reports, JavaDoc, build logs
+      - name: build project
+        run: ./gradlew build --info
+
+      # 6. Upload build artifacts (JARs available for download for 90 days)
       - name: capture build artifacts
+        if: always() # Upload even if build fails
         uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: build/libs/
+          retention-days: 90
+          if-no-files-found: warn
+
+      # 7. Upload test reports (useful for debugging CI failures)
+      - name: upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test Reports
+          path: build/test-results/
+          retention-days: 30

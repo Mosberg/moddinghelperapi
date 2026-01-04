@@ -1,21 +1,20 @@
 ########################################
-# Gradle
+# Gradle & Build Output
 ########################################
 
 .gradle/
 build/
 out/
 classes/
-!build/docs/javadoc/index.html
 
-# Allow specific JARs (explicit artifacts)
-!build/libs/moddinghelperapi-1.0.0.jar
-!build/libs/moddinghelperapi-1.0.0-sources.jar
-!build/libs/moddinghelperapi-1.0.0-javadoc.jar
+# Allow important build artifacts (keeps final JARs and docs)
+!build/libs/*.jar
+!build/docs/javadoc/
+!build/docs/javadoc/**
 
 
 ########################################
-# IDEs
+# IDEs & Editor Configuration
 ########################################
 
 # IntelliJ IDEA
@@ -28,11 +27,17 @@ classes/
 *.launch
 .classpath
 .project
+.settings/
 
 # VS Code
 .vscode/
-.settings/
+.vs/
+
+# General Editor
 bin/
+*.swp
+*.swo
+*~
 
 
 ########################################
@@ -51,7 +56,7 @@ Desktop.ini
 
 
 ########################################
-# Java Runtime Crash Logs
+# Java Runtime & Testing
 ########################################
 
 hs_err_*.log
@@ -59,12 +64,13 @@ replay_*.log
 *.hprof
 *.jfr
 
-
 ########################################
-# Fabric / Minecraft
+# Fabric / Minecraft Runtime
 ########################################
 
 run/
 run-server/
 logs/
 crash-reports/
+.mcreator/
+client-cache/

@@ -1,9 +1,26 @@
-#
-# https://help.github.com/articles/dealing-with-line-endings/
-#
-# Linux start script should use lf
-/gradlew        text eol=lf
+# ═════════════════════════════════════════════════════════════════════════════════
+# Line Ending Strategy - Consistent across Windows/Linux/macOS
+# ═════════════════════════════════════════════════════════════════════════════════
+# Reference: https://help.github.com/articles/dealing-with-line-endings/
+# Problem: Git auto-converts line endings, causing unwanted diffs
+# Solution: Explicitly declare line endings per file type
 
-# These are Windows script files and should use crlf
+# Default: Unix (LF) for consistency across CI/CD and development environments
+* text eol=lf
+
+# Windows batch/PowerShell: Must use CRLF (Windows-native line ending)
 *.bat           text eol=crlf
+*.cmd           text eol=crlf
+*.ps1           text eol=crlf
+
+# Shell scripts (Gradle wrapper, CI/CD): Unix LF required
+/gradlew        text eol=lf
+shell/**        text eol=lf
+
+# Binary files: Prevent Git from modifying them
+*.jar binary
+*.class binary
+*.zip binary
+*.png binary
+*.jpg binary
 
