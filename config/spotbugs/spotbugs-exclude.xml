@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Exclude test code -->
+    <Match>
+        <Class name="~.*\.test\..*"/>
+    </Match>
+
+    <!-- Exclude generated code -->
+    <Match>
+        <Package name="~.*\.generated\..*"/>
+    </Match>
+
+    <!-- Exclude data classes with public fields -->
+    <Match>
+        <Class name="~.*\$.*Data"/>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+
+    <!-- Utility classes with private constructors -->
+    <Match>
+        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
+        <Method name="&lt;init&gt;"/>
+    </Match>
+
+    <!-- Allow static utility classes -->
+    <Match>
+        <Class name="~.*Helper"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+</FindBugsFilter>

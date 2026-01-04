@@ -1,9 +1,14 @@
 package dk.mosberg.util;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 
 /**
  * Utility for inventory operations. Provides methods for searching, adding, and removing items from
@@ -235,4 +240,320 @@ public final class InventoryHelper {
         }
         return count;
     }
+
+    // =============================================================================================
+    // Sorting Operations
+    // =============================================================================================
+
+    /**
+     * Sorts the inventory using the default comparator (by item ID, count, damage).
+     *
+     * @param inventory the inventory to sort
+     */
+    public static void sort(@NotNull Inventory inventory) {
+        sortWith(inventory, ItemStackHelper::compare);
+    }
+
+    /**
+     * Sorts the inventory by item type (registry ID).
+     *
+     * @param inventory the inventory to sort
+     */
+    public static void sortByType(@NotNull Inventory inventory) {
+        sortWith(inventory, (s1, s2) -> {
+            if (s1.isEmpty() && s2.isEmpty())
+                return 0;
+            if (s1.isEmpty())
+                return 1;
+            if (s2.isEmpty())
+                return -1;
+
+            String id1 = Registries.ITEM.getId(s1.getItem()).toString();
+            String id2 = Registries.ITEM.getId(s2.getItem()).toString();
+            return id1.compareTo(id2);
+        });
+    }
+
+    /**
+     * Sorts the inventory by display name alphabetically.
+     *
+     * @param inventory the inventory to sort
+     */
+    public static void sortByName(@NotNull Inventory inventory) {
+        sortWith(inventory, (s1, s2) -> {
+            if (s1.isEmpty() && s2.isEmpty())
+                return 0;
+            if (s1.isEmpty())
+                return 1;
+            if (s2.isEmpty())
+                return -1;
+
+            String name1 = s1.getName().getString();
+            String name2 = s2.getName().getString();
+            return name1.compareTo(name2);
+        });
+    }
+
+    /**
+     * Sorts the inventory by stack count (descending).
+     *
+     * @param inventory the inventory to sort
+     */
+    public static void sortByCount(@NotNull Inventory inventory) {
+        sortWith(inventory, (s1, s2) -> {
+            if (s1.isEmpty() && s2.isEmpty())
+                return 0;
+            if (s1.isEmpty())
+                return 1;
+            if (s2.isEmpty())
+                return -1;
+
+            return Integer.compare(s2.getCount(), s1.getCount());
+        });
+    }
+
+    /**
+     * Sorts the inventory using a custom comparator.
+     *
+     * @param inventory the inventory to sort
+     * @param comparator the comparator to use
+     */
+    public static void sortWith(@NotNull Inventory inventory,
+            @NotNull Comparator<ItemStack> comparator) {
+        List<ItemStack> stacks = new ArrayList<>();
+
+        // Collect all stacks
+        for (int i = 0; i < inventory.size(); i++) {
+            stacks.add(inventory.getStack(i).copy());
+        }
+
+        // Sort
+        stacks.sort(comparator);
+
+        // Put back
+        for (int i = 0; i < inventory.size() && i < stacks.size(); i++) {
+            inventory.setStack(i, stacks.get(i));
+        }
+    }
+
+    // =============================================================================================
+    // Bulk Operations
+    // =============================================================================================
+
+    /**
+     * Moves all items from one inventory to another.
+     *
+     * @param from the source inventory
+     * @param to the destination inventory
+     * @return the number of items successfully moved
+     */
+    public static int moveAll(@NotNull Inventory from, @NotNull Inventory to) {
+        int moved = 0;
+
+        for (int i = 0; i < from.size(); i++) {
+            ItemStack stack = from.getStack(i);
+            if (!stack.isEmpty()) {
+                boolean added = addItem(to, stack.copy());
+                if (added) {
+                    moved += stack.getCount();
+                    from.setStack(i, ItemStack.EMPTY);
+                }
+            }
+        }
+
+        return moved;
+    }
+
+    /**
+     * Clears all items matching a predicate from the inventory.
+     *
+     * @param inventory the inventory to clear from
+     * @param filter the predicate to match items
+     * @return the number of items removed
+     */
+    public static int clearMatching(@NotNull Inventory inventory,
+            @NotNull Predicate<ItemStack> filter) {
+        int removed = 0;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty() && filter.test(stack)) {
+                removed += stack.getCount();
+                inventory.setStack(i, ItemStack.EMPTY);
+            }
+        }
+
+        return removed;
+    }
+
+    /**
+     * Counts all items matching a predicate in the inventory.
+     *
+     * @param inventory the inventory to search
+     * @param filter the predicate to match items
+     * @return the total count of matching items
+     */
+    public static int countMatchingWith(@NotNull Inventory inventory,
+            @NotNull Predicate<ItemStack> filter) {
+        int count = 0;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty() && filter.test(stack)) {
+                count += stack.getCount();
+            }
+        }
+
+        return count;
+    }
+
+    /**
+     * Transfers a specific item from one inventory to another.
+     *
+     * @param from the source inventory
+     * @param to the destination inventory
+     * @param slot the slot in the source inventory
+     * @return true if the transfer was successful
+     */
+    public static boolean transferItem(@NotNull Inventory from, @NotNull Inventory to, int slot) {
+        if (slot < 0 || slot >= from.size()) {
+            return false;
+        }
+
+        ItemStack stack = from.getStack(slot);
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        boolean added = addItem(to, stack.copy());
+        if (added) {
+            from.setStack(slot, ItemStack.EMPTY);
+            return true;
+        }
+
+        return false;
+    }
+
+    // =============================================================================================
+    // Distribution Operations
+    // =============================================================================================
+
+    /**
+     * Distributes items evenly across all empty slots in the inventory.
+     *
+     * @param inventory the inventory to distribute to
+     * @param source the ItemStack to distribute
+     * @param totalCount the total number of items to distribute
+     * @return the number of items actually distributed
+     */
+    public static int distributeEvenly(@NotNull Inventory inventory, @NotNull ItemStack source,
+            int totalCount) {
+        List<Integer> emptySlots = new ArrayList<>();
+
+        // Find empty slots
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.getStack(i).isEmpty()) {
+                emptySlots.add(i);
+            }
+        }
+
+        if (emptySlots.isEmpty()) {
+            return 0;
+        }
+
+        int distributed = 0;
+        int perSlot = totalCount / emptySlots.size();
+        int remainder = totalCount % emptySlots.size();
+
+        for (int i = 0; i < emptySlots.size() && distributed < totalCount; i++) {
+            int slot = emptySlots.get(i);
+            int count = perSlot + (i < remainder ? 1 : 0);
+            count = Math.min(count, source.getMaxCount());
+
+            ItemStack newStack = source.copy();
+            newStack.setCount(count);
+            inventory.setStack(slot, newStack);
+            distributed += count;
+        }
+
+        return distributed;
+    }
+
+    /**
+     * Fills the target inventory from a source inventory until target is full or source is empty.
+     *
+     * @param target the inventory to fill
+     * @param source the inventory to take from
+     * @return the number of items transferred
+     */
+    public static int fillFrom(@NotNull Inventory target, @NotNull Inventory source) {
+        int transferred = 0;
+
+        for (int i = 0; i < source.size(); i++) {
+            ItemStack stack = source.getStack(i);
+            if (!stack.isEmpty()) {
+                ItemStack copy = stack.copy();
+                boolean added = addItem(target, copy);
+
+                if (added) {
+                    transferred += stack.getCount();
+                    source.setStack(i, ItemStack.EMPTY);
+                } else {
+                    // Partially added - update source stack
+                    int remaining = copy.getCount();
+                    if (remaining < stack.getCount()) {
+                        transferred += stack.getCount() - remaining;
+                        stack.setCount(remaining);
+                    }
+                }
+            }
+        }
+
+        return transferred;
+    }
+
+    /**
+     * Compacts the inventory by merging similar stacks and removing empty slots.
+     *
+     * @param inventory the inventory to compact
+     */
+    public static void compact(@NotNull Inventory inventory) {
+        List<ItemStack> stacks = new ArrayList<>();
+
+        // Collect all non-empty stacks
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty()) {
+                stacks.add(stack.copy());
+            }
+        }
+
+        // Clear inventory
+        clear(inventory);
+
+        // Re-add stacks (will merge automatically)
+        for (ItemStack stack : stacks) {
+            addItem(inventory, stack);
+        }
+    }
+
+    /**
+     * Gets the total weight/value of all items in the inventory.
+     *
+     * @param inventory the inventory to calculate
+     * @return the total weight
+     */
+    public static int getTotalWeight(@NotNull Inventory inventory) {
+        int weight = 0;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i);
+            if (!stack.isEmpty()) {
+                weight += ItemStackHelper.getWeight(stack);
+            }
+        }
+
+        return weight;
+    }
 }
+

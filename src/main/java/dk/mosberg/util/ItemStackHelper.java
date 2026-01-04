@@ -1,9 +1,13 @@
 package dk.mosberg.util;
 
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 
 /**
  * Utility for ItemStack operations. Provides methods for creating, checking, and manipulating
@@ -276,4 +280,179 @@ public final class ItemStackHelper {
         }
         return (double) (stack.getMaxDamage() - stack.getDamage()) / stack.getMaxDamage();
     }
+
+    // =============================================================================================
+    // Enchantment Operations
+    // =============================================================================================
+
+    /**
+     * Gets the level of a specific enchantment on an item.
+     *
+     * @param stack the ItemStack
+     * @param enchantment the enchantment to check
+     * @return the enchantment level, or 0 if not present
+     */
+    public static int getEnchantmentLevel(@NotNull ItemStack stack,
+            @NotNull RegistryEntry<Enchantment> enchantment) {
+        return EnchantmentHelper.getLevel(enchantment, stack);
+    }
+
+    /**
+     * Checks if an item has a specific enchantment.
+     *
+     * @param stack the ItemStack
+     * @param enchantment the enchantment to check for
+     * @return true if the enchantment is present
+     */
+    public static boolean hasEnchantment(@NotNull ItemStack stack,
+            @NotNull RegistryEntry<Enchantment> enchantment) {
+        return getEnchantmentLevel(stack, enchantment) > 0;
+    }
+
+    /**
+     * Checks if an item has any enchantments.
+     *
+     * @param stack the ItemStack
+     * @return true if the item has at least one enchantment
+     */
+    public static boolean hasAnyEnchantments(@NotNull ItemStack stack) {
+        ItemEnchantmentsComponent enchantments = EnchantmentHelper.getEnchantments(stack);
+        return !enchantments.isEmpty();
+    }
+
+    /**
+     * Gets the number of enchantments on an item.
+     *
+     * @param stack the ItemStack
+     * @return the count of unique enchantments
+     */
+    public static int getEnchantmentCount(@NotNull ItemStack stack) {
+        ItemEnchantmentsComponent enchantments = EnchantmentHelper.getEnchantments(stack);
+        return enchantments.getSize();
+    }
+
+    // =============================================================================================
+    // Advanced Comparison Operations
+    // =============================================================================================
+
+    /**
+     * Checks if two ItemStacks are similar (same item, same NBT, ignoring count).
+     *
+     * @param stack1 first ItemStack
+     * @param stack2 second ItemStack
+     * @return true if item type and NBT match
+     */
+    public static boolean isSimilar(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
+        return ItemStack.areItemsAndComponentsEqual(stack1, stack2);
+    }
+
+    /**
+     * Checks if two ItemStacks are equal ignoring stack count.
+     *
+     * @param stack1 first ItemStack
+     * @param stack2 second ItemStack
+     * @return true if items and components match (count ignored)
+     */
+    public static boolean equalsIgnoreCount(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
+        return isSimilar(stack1, stack2);
+    }
+
+    /**
+     * Checks if two ItemStacks are exactly equal (including count).
+     *
+     * @param stack1 first ItemStack
+     * @param stack2 second ItemStack
+     * @return true if all properties match
+     */
+    public static boolean equals(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
+        return ItemStack.areEqual(stack1, stack2);
+    }
+
+    /**
+     * Compares two ItemStacks for sorting purposes.
+     *
+     * <p>
+     * Comparison order:
+     * <ol>
+     * <li>Item registry ID (alphabetically)</li>
+     * <li>Count (descending)</li>
+     * <li>Damage (ascending)</li>
+     * </ol>
+     *
+     * @param stack1 first ItemStack
+     * @param stack2 second ItemStack
+     * @return negative if stack1 &lt; stack2, positive if stack1 &gt; stack2, zero if equal
+     */
+    public static int compare(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
+        // Empty stacks always sort last
+        if (stack1.isEmpty() && stack2.isEmpty())
+            return 0;
+        if (stack1.isEmpty())
+            return 1;
+        if (stack2.isEmpty())
+            return -1;
+
+        // Compare by item ID
+        String id1 = Registries.ITEM.getId(stack1.getItem()).toString();
+        String id2 = Registries.ITEM.getId(stack2.getItem()).toString();
+        int idCompare = id1.compareTo(id2);
+        if (idCompare != 0)
+            return idCompare;
+
+        // Same item - compare by count (descending)
+        int countCompare = Integer.compare(stack2.getCount(), stack1.getCount());
+        if (countCompare != 0)
+            return countCompare;
+
+        // Same count - compare by damage (ascending)
+        return Integer.compare(stack1.getDamage(), stack2.getDamage());
+    }
+
+    // =============================================================================================
+    // Utility Methods
+    // =============================================================================================
+
+    /**
+     * Checks if an item can accept a specific enchantment.
+     *
+     * @param stack the ItemStack
+     * @param enchantment the enchantment to check
+     * @return true if the enchantment is compatible
+     */
+    public static boolean canAcceptEnchantment(@NotNull ItemStack stack,
+            @NotNull RegistryEntry<Enchantment> enchantment) {
+        return enchantment.value().isAcceptableItem(stack);
+    }
+
+    /**
+     * Gets the rarity of an item stack.
+     *
+     * @param stack the ItemStack
+     * @return the rarity as a string ("common", "uncommon", "rare", "epic")
+     */
+    @NotNull
+    public static String getRarity(@NotNull ItemStack stack) {
+        return stack.getRarity().toString().toLowerCase();
+    }
+
+    /**
+     * Checks if an item is a tool (has durability and can break blocks).
+     *
+     * @param stack the ItemStack
+     * @return true if the item is a tool
+     */
+    public static boolean isTool(@NotNull ItemStack stack) {
+        return stack.getMaxDamage() > 0 && stack.isDamageable();
+    }
+
+    /**
+     * Checks if an item is enchantable.
+     *
+     * @param stack the ItemStack
+     * @return true if the item can receive enchantments
+     */
+    public static boolean isEnchantable(@NotNull ItemStack stack) {
+        return stack.isEnchantable();
+    }
 }
+
