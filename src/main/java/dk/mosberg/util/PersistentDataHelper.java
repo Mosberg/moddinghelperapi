@@ -122,7 +122,6 @@ public final class PersistentDataHelper {
         if (target == null) {
             return null;
         }
-        @SuppressWarnings("null")
         A value = target.getAttached(type);
         target.setAttached(type, null);
         return value;
@@ -147,7 +146,6 @@ public final class PersistentDataHelper {
         if (target == null) {
             return defaultSupplier.get();
         }
-        @SuppressWarnings("null")
         A value = target.getAttached(type);
         if (value == null) {
             value = defaultSupplier.get();
@@ -174,7 +172,6 @@ public final class PersistentDataHelper {
         if (target == null) {
             return false;
         }
-        @SuppressWarnings("null")
         A value = target.getAttached(type);
         if (value != null) {
             target.setAttached(type, modifier.apply(value));
@@ -202,7 +199,6 @@ public final class PersistentDataHelper {
         if (target == null) {
             return;
         }
-        @SuppressWarnings("null")
         A value = target.getAttached(type);
         if (value == null) {
             value = defaultSupplier.get();
@@ -239,7 +235,6 @@ public final class PersistentDataHelper {
         if (target == null) {
             return amount;
         }
-        @SuppressWarnings("null")
         Integer value = target.getAttached(type);
         int newValue = (value != null ? value : 0) + amount;
         target.setAttached(type, newValue);
