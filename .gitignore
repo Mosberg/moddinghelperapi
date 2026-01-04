@@ -6,7 +6,6 @@
 build/
 out/
 classes/
-!build/libs/
 !build/docs/javadoc/index.html
 
 # Allow specific JARs (explicit artifacts)
