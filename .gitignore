@@ -1,41 +1,71 @@
-# gradle
+########################################
+# Gradle
+########################################
 
 .gradle/
 build/
 out/
 classes/
+!build/libs/
+!build/docs/javadoc/index.html
 
-# eclipse
+# Allow specific JARs (explicit artifacts)
+!build/libs/moddinghelperapi-1.0.0.jar
+!build/libs/moddinghelperapi-1.0.0-sources.jar
+!build/libs/moddinghelperapi-1.0.0-javadoc.jar
 
-*.launch
 
-# idea
+########################################
+# IDEs
+########################################
 
+# IntelliJ IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# vscode
-
-.settings/
-.vscode/
-bin/
+# Eclipse
+*.launch
 .classpath
 .project
 
-# macos
+# VS Code
+.vscode/
+.settings/
+bin/
 
-*.DS_Store
 
-# fabric
+########################################
+# OS / System Files
+########################################
 
-run/
-run-server/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# java
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+########################################
+# Java Runtime Crash Logs
+########################################
 
 hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+
+########################################
+# Fabric / Minecraft
+########################################
+
+run/
+run-server/
+logs/
+crash-reports/
