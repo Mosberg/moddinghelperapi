@@ -2,6 +2,8 @@
 
 Based on my analysis of my [Modding Helper API repository](https://github.com/Mosberg/moddinghelperapi), here's a comprehensive list of improvements you can add to enhance functionality, developer experience, and maintainability:
 
+**Snapshot (Jan 2026):** Many suggestions below are now implemented (28 helpers + 3 builders). Treat this list as a backlog; cross-check with IMPROVEMENTS_GUIDE.md for current coverage.
+
 ## Testing & Quality Assurance
 
 ### Unit Testing Infrastructure

@@ -4,6 +4,8 @@
 
 This session completed comprehensive Phase 2 improvements to the Modding Helper API, expanding from Phase 1's 23 utility helpers to a full-featured development toolkit with testing infrastructure, fluent builders, network support, and advanced utilities.
 
+**Snapshot (Jan 2026):** Current library includes Phase 3 additions as well (28 helpers + 3 builders). This summary is kept as a record of the Phase 2 implementation session.
+
 ## Completed Improvements (10 of 15 Items)
 
 ### ✅ Testing Infrastructure (Todos #1-2)

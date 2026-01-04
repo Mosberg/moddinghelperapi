@@ -1,5 +1,7 @@
 # Minecraft 1.21.11 Fabric API Reference
 
+**Snapshot (Jan 2026):** Target platform remains Minecraft 1.21.11 with Fabric Loader 0.18.4 / Fabric API 0.140.2; helpers and examples below are aligned to that version.
+
 ## Research Results for ItemStack NBT, Entity, and Player Methods
 
 Based on analysis of the Modding Helper API codebase and Minecraft 1.21.11 Fabric API, here are the exact method signatures and implementations.

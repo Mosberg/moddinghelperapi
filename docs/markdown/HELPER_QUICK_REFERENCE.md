@@ -1,6 +1,7 @@
 # Helper Classes Quick Reference
 
 **Status:** ✅ All 9 Phase 1 helpers enhanced and verified
+**Snapshot (Jan 2026):** Reference covers Phase 1 helpers; newer helpers and builders are documented in ENHANCEMENT_SUMMARY.md and IMPROVEMENTS_GUIDE.md.
 **Build:** ✅ SUCCESS (6s)
 **Artifacts:** 3 JARs generated (407 KB total)
 

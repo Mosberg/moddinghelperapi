@@ -5,6 +5,8 @@
 **Build Status:** ✅ **BUILD SUCCESSFUL (11s)**
 **Completion:** ✅ **All 23 Helpers Complete (Phase 1, 2, 3)**
 
+**Snapshot (Jan 2026):** 28 helpers + 3 builders (31 total) available; 72 tests (registry-dependent cases require game bootstrap). Details below reflect the Phase 1–3 record and remain useful for metrics and history.
+
 ---
 
 ## Executive Summary

@@ -4,6 +4,8 @@
 **Date:** January 2026
 **Version:** 1.0.0+
 
+**Snapshot (Jan 2026):** 28 helpers + 3 builders; 72 tests total (registry-dependent cases require game bootstrap and are disabled in plain JVM runs). Use this guide for detailed improvements and roadmap notes.
+
 ---
 
 ## 📋 Overview

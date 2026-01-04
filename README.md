@@ -1,376 +1,75 @@
-# Modding Helper API - Documentation Index
+﻿# Modding Helper API
 
-**Status:** ✅ All 23 Helpers Complete (Phase 1, 2, & 3)
-**Build:** ✅ Successful (11s build time)
-**Quality:** ✅ Zero errors/warnings | 100% Null Safety
+Library mod for Fabric (Minecraft 1.21.11) providing utility helpers and fluent builders. Designed as a dependency for other mods; no gameplay content added.
 
----
+**Snapshot (Jan 2026)**
 
-## Quick Navigation
+- Version: 1.0.0 | Mod ID: moddinghelperapi
+- Helpers: 28 utilities + 3 builders (31 total)
+- Tests: 72 (61 pass without registry bootstrap; registry-dependent cases are disabled in plain JVM runs)
+- Build: Java 21, Fabric Loader 0.18.4, Fabric API 0.140.2+1.21.11
 
-### 📖 For API Users
+## Quick Start
 
-**Start here if you want to use the helpers in your mod:**
-
-1. [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md) - Copy-paste ready code examples
-
-   - API overview for all 9 helpers
-   - Common usage patterns
-   - Method signatures with examples
-
-2. [.github/copilot-instructions.md](.github/copilot-instructions.md) - Project development guide
-   - Architecture and structure
-   - Development patterns
-   - Build commands
-
-### 📚 For In-Depth Learning
-
-**For comprehensive documentation and design details:**
-
-1. [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md) - Complete enhancement details
-
-   - Each helper class reviewed in depth
-   - New methods and improvements listed
-   - Code patterns and examples
-   - Next steps for Phase 3
-
-2. [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md) - Project health and metrics
-
-   - Build statistics
-   - Code quality metrics
-   - Verification checklist
-   - Version information
-
-3. [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md) - API notes
-   - ItemStack NBT operations
-   - Entity position handling
-   - Player messaging
-   - Important 1.21.11 changes
-
-### 🗂️ For Planning & Design
-
-**For understanding the broader project:**
-
-1. [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md) - Original 27-class design document
-   - Phase 1 (completed): 9 core helpers
-   - Phase 2 (extended): 6 specialized helpers
-   - Phase 3 (planned): 11 additional helpers
-   - Implementation roadmap
-
----
-
-## Helper Classes At a Glance
-
-### Phase 1: Core Helpers (✅ Complete - 9 classes, 870 lines)
-
-| Class                | Purpose               | Methods | Status      |
-| -------------------- | --------------------- | ------- | ----------- |
-| **GsonInstance**     | JSON serialization    | 2       | ✅ Enhanced |
-| **IdentifierHelper** | Minecraft identifiers | 5       | ✅ Enhanced |
-| **ItemStackHelper**  | ItemStack operations  | 6       | ✅ Enhanced |
-| **EntityHelper**     | Entity operations     | 7       | ✅ Enhanced |
-| **PlayerHelper**     | Player queries        | 7       | ✅ Enhanced |
-| **NBTHelper**        | NBT read/write        | 10      | ✅ Enhanced |
-| **TextHelper**       | Text components       | 8       | ✅ Enhanced |
-| **VectorHelper**     | Vector math           | 10      | ✅ Enhanced |
-| **RegistryHelper**   | Registry access       | 6       | ✅ Enhanced |
-
-### Phase 2: Extended Helpers (✅ Complete - 6 classes, 1,250 lines)
-
-| Class                 | Purpose                   | Methods | Status       |
-| --------------------- | ------------------------- | ------- | ------------ |
-| **InventoryHelper**   | Inventory operations      | 10      | ✅ Completed |
-| **ConfigHelper**      | Configuration management  | 11      | ✅ Completed |
-| **BlockSearchHelper** | Block searching in world  | 6       | ✅ Completed |
-| **BlockStateHelper**  | Block state manipulation  | 9       | ✅ Completed |
-| **DimensionHelper**   | Dimension/world utilities | 10      | ✅ Completed |
-| **HealthHelper**      | Health & status effects   | 14      | ✅ Completed |
-
-### Phase 3: Advanced Helpers (✅ Complete - 8 classes, 1,860 lines)
-
-| Class                    | Purpose                    | Methods | Status       |
-| ------------------------ | -------------------------- | ------- | ------------ |
-| **ParticleHelper**       | Particle spawning patterns | 9       | ✅ Completed |
-| **SoundHelper**          | Sound playing utilities    | 4       | ✅ Completed |
-| **StatisticsHelper**     | Player statistics access   | 12      | ✅ Completed |
-| **ValidationHelper**     | Input validation utilities | 14      | ✅ Completed |
-| **FileHelper**           | File I/O operations        | 12      | ✅ Completed |
-| **MathHelper**           | Advanced mathematics       | 15      | ✅ Completed |
-| **ChatHelper**           | Chat messaging utilities   | 8       | ✅ Completed |
-| **PersistentDataHelper** | Persistent data storage    | 13      | ✅ Completed |
-
----
-
-## File Organization
-
-````
-📁 moddinghelperapi/
-│
-├── 📄 README.md (this file)
-├── 📄 PROJECT_STATUS.md          ← Project health & metrics
-├── 📄 ENHANCEMENT_SUMMARY.md     ← Detailed enhancement info
-├── 📄 HELPER_QUICK_REFERENCE.md  ← Quick API reference with examples
-├── 📄 HELPER_CLASSES.md          ← Design & implementation status (23 classes)
-├── 📄 MINECRAFT_1.21.11_API_REFERENCE.md ← API-specific notes
-│
-├── 📁 src/main/java/dk/mosberg/util/ (23 Helper Classes)
-│   ├── Phase 1: Core Helpers (9 classes, 870 lines)
-│   │   ├── EntityHelper.java         (97 lines)
-│   │   ├── GsonInstance.java         (32 lines)
-│   │   ├── IdentifierHelper.java     (72 lines)
-│   │   ├── ItemStackHelper.java      (94 lines)
-│   │   ├── NBTHelper.java           (186 lines)
-│   │   ├── PlayerHelper.java         (86 lines)
-│   │   ├── RegistryHelper.java       (75 lines)
-│   │   ├── TextHelper.java          (100 lines)
-│   │   └── VectorHelper.java        (122 lines)
-│   │
-│   ├── Phase 2: Extended Helpers (6 classes, 1,250 lines)
-│   │   ├── InventoryHelper.java      (230 lines)
-│   │   ├── ConfigHelper.java         (208 lines)
-│   │   ├── BlockSearchHelper.java    (214 lines)
-│   │   ├── BlockStateHelper.java     (168 lines)
-│   │   ├── DimensionHelper.java      (184 lines)
-│   │   └── HealthHelper.java         (221 lines)
-│   │
-│   └── Phase 3: Advanced Helpers (8 classes, 1,860 lines)
-│       ├── ParticleHelper.java       (163 lines)
-│       ├── SoundHelper.java          (141 lines)
-│       ├── StatisticsHelper.java     (201 lines)
-│       ├── ValidationHelper.java     (198 lines)
-│       ├── FileHelper.java           (197 lines)
-│       ├── MathHelper.java           (246 lines)
-│       ├── ChatHelper.java           (196 lines)
-│       └── PersistentDataHelper.java (173 lines)
-
----
-
-## Getting Started
-
-### 1. Add as Dependency
-
-In your mod's `fabric.mod.json`:
+1. Declare dependency in your fabric.mod.json:
 
 ```json
 {
   "depends": {
     "fabricloader": ">=0.18.4",
+    "fabric-api": "*",
     "moddinghelperapi": "*"
   }
 }
-````
+```
 
-### 2. Import Helpers
+2. Import helpers in code:
 
 ```java
 import dk.mosberg.util.*;
+import dk.mosberg.util.builders.*;
 ```
 
-### 3. Use in Your Code
+3. Use a few helpers:
 
 ```java
-// ItemStack example
-ItemStack diamond = ItemStackHelper.of("minecraft:diamond", 1);
-
-// Text example
-MutableText msg = TextHelper.success("Success!");
-player.sendMessage(msg);
-
-// NBT example
-NBTHelper.putString(compound, "name", "Steve");
-String name = NBTHelper.getString(compound, "name", "Unknown");
+var stack = ItemStackHelper.of("minecraft:diamond", 1);
+var text = TextHelper.success("Loaded!");
+var vec = new Vec3dBuilder(1, 2, 3).normalize().build();
 ```
 
-### 4. Reference Documentation
+## Build & Test
 
-- Quick examples: See [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)
-- Detailed API: See [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)
-- Generated JavaDoc: In the `-javadoc.jar` or `build/docs/javadoc/`
+- Compile fast: ./gradlew.bat compileJava
+- Full build (skip tests): ./gradlew.bat build -x test
+- Run tests: ./gradlew.bat test (registry-dependent tests are disabled unless run with a bootstrapped game environment)
+- Run client/server: ./gradlew.bat runClient / ./gradlew.bat runServer
 
----
+## Documentation
 
-## Build & Compilation
+- Quick examples: docs/markdown/HELPER_QUICK_REFERENCE.md
+- Detailed enhancements: docs/markdown/ENHANCEMENT_SUMMARY.md
+- Project status & metrics: docs/markdown/PROJECT_STATUS.md
+- API notes for 1.21.11: docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md
+- Builder/usage guides: docs/markdown/IMPROVEMENTS_GUIDE.md
 
-### Build Commands
+## Features
 
-```bash
-# Full build (test excluded)
-./gradlew.bat build -x test
+- Server-safe utilities (no client imports in main source set)
+- Helpers for identifiers, NBT, items, vectors, text, registries, blocks/world, networking, logging, events, validation, math, files, particles, sounds, and more
+- Fluent builders: TextBuilder, Vec3dBuilder, ItemStackBuilder
+- Comprehensive JavaDoc across public APIs
 
-# Clean rebuild
-./gradlew.bat clean build -x test
+## Folder Map
 
-# Compile only
-./gradlew.bat compileJava
+- Source: src/main/java/dk/mosberg/ (helpers + entrypoints)
+- Client-only: src/client/java/dk/mosberg/client/
+- Tests: src/test/java/dk/mosberg/util/
+- Docs: docs/markdown/
 
-# Run Minecraft with mod
-./gradlew.bat runClient
+## Support
 
-# Generate JavaDoc
-./gradlew.bat javadoc
-```
+- Issues: https://github.com/mosberg/moddinghelperapi/issues
+- Homepage: https://mosberg.github.io/moddinghelperapi
 
-### Build Status
-
-- **Time:** ~11 seconds (with configuration cache)
-- **Errors:** 0
-- **Warnings:** 0 (all null safety fixed)
-- **Tests:** Skipped (JUnit 5 framework ready)
-- **Lines of Code:** 4,980+ across 23 classes
-
----
-
-## Documentation Structure
-
-### For Different Audiences
-
-**📌 Quick Developers** (5 minutes)
-
-- Start with: [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)
-- Copy-paste code examples
-- Method signatures
-
-**📌 Thorough Learners** (20 minutes)
-
-- Read: [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)
-- Understand each helper in depth
-- Learn design patterns
-
-**📌 Project Leads** (10 minutes)
-
-- Check: [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md)
-- Review metrics and quality
-- Plan next phases
-
-**📌 API Specialists** (15 minutes)
-
-- Consult: [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md)
-- Understand 1.21.11 specific patterns
-- Learn compatibility notes
-
----
-
-## Key Features
-
-### ✅ Null Safety
-
-All methods annotated with `@NotNull` / `@Nullable` for:
-
-- IDE warnings and autocomplete
-- Development-time null checks
-- Self-documenting code
-
-### ✅ Comprehensive Documentation
-
-Every method includes:
-
-- Detailed JavaDoc comments
-- Parameter descriptions
-- Return value documentation
-- Usage examples
-
-### ✅ Minecraft 1.21.11 Compatible
-
-- Tested against current API
-- Handles Optional NBT getters
-- No deprecated method usage
-- Block registry support
-
-### ✅ Production Ready
-
-- Zero compilation errors/warnings
-- Follows Fabric conventions
-- Static utility pattern
-- Sensible error defaults
-
----
-
-## Statistics
-
-### Code
-
-- **Helper Classes:** 9 files
-- **Code Lines:** 870 total
-- **Public Methods:** 62
-- **Annotations:** 102 (@NotNull, @Nullable)
-
-### Documentation
-
-- **Documentation Files:** 4 markdown files
-- **Documentation Lines:** 1,172 total
-- **JavaDoc Elements:** 71 methods/classes documented
-- **Code Examples:** 20+ usage examples
-
-### Artifacts
-
-- **Main JAR:** 270 KB (compiled code + resources)
-- **Sources JAR:** 14 KB (source code distribution)
-- **JavaDoc JAR:** 123 KB (HTML documentation)
-- **Total:** 407 KB
-
----
-
-## Version Information
-
-- **Modding Helper API:** 1.0.0
-- **Minecraft:** 1.21.11
-- **Fabric API:** 0.138.3+1.21.11
-- **Fabric Loader:** 0.18.4
-- **Java:** 21
-- **Gradle:** 9.2.1
-
----
-
-## Support & Contributing
-
-### Documentation
-
-For usage questions, refer to:
-
-1. [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md) for quick lookup
-2. [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md) for detailed info
-3. Generated JavaDoc (in `-javadoc.jar` or `build/docs/javadoc/`)
-
-### Reporting Issues
-
-When reporting issues, include:
-
-- Minecraft version (1.21.11)
-- Helper class name
-- Method being used
-- Error message/stacktrace
-
-### Enhancement Ideas
-
-For Phase 3 implementation planning, see:
-
-- [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md) for planned 11 additional helpers
-- [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md) for next phase planning
-
----
-
-## License
-
-This project is a Fabric Mod library component. See LICENSE file for details.
-
----
-
-## Quick Links
-
-| Document                                                                                | Purpose                     |
-| --------------------------------------------------------------------------------------- | --------------------------- |
-| [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)                   | 👤 Quick API examples       |
-| [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)                         | 📚 Detailed documentation   |
-| [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md)                                   | 📊 Project metrics & health |
-| [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md)                                   | 🗺️ Architecture & planning  |
-| [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md) | 🔧 API-specific notes       |
-| [.github/copilot-instructions.md](.github/copilot-instructions.md)                      | 🎯 Development guide        |
-
----
-
-**Last Updated:** January 2026
-**Status:** Phase 1 Complete ✅
-**Build:** Successful ✅
-**Ready for Use:** Yes ✅
-
-For questions, refer to the documentation above. For code examples, see HELPER_QUICK_REFERENCE.md.
+Last updated: January 2026

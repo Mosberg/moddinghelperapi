@@ -4,6 +4,10 @@
 **Date:** January 2026
 **Status:** ✅ All 23 Helpers Complete (Phase 1, 2, 3)
 
+**Snapshot (Jan 2026):** 28 helpers + 3 builders (31 total); 72 tests (61 pass without registry bootstrap); Java 21 / Minecraft 1.21.11 / Fabric API 0.140.2.
+
+> This document is a detailed Phase 1–3 record; current counts above reflect the latest library state.
+
 ---
 
 ## Overview

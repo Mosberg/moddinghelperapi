@@ -2,6 +2,8 @@
 
 This document outlines the comprehensive list of 23 helper classes that have been implemented in the `src/main/java/dk/mosberg/util/` directory.
 
+**Snapshot (Jan 2026):** Library now ships 28 helpers + 3 builders (31 total). This file remains a design/status record for the original 23-class set.
+
 ## ✅ Implementation Complete - 23 Classes Total (4,980+ lines)
 
 ## Core JSON & Data Serialization
