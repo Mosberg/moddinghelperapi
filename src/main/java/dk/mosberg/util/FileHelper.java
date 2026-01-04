@@ -6,6 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import org.jetbrains.annotations.NotNull;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -24,6 +27,8 @@ import com.google.gson.JsonParser;
  * </pre>
  */
 public final class FileHelper {
+    private static final Executor ASYNC_EXECUTOR = Executors.newCachedThreadPool();
+
     private FileHelper() {}
 
     /**
@@ -261,5 +266,81 @@ public final class FileHelper {
         } catch (IOException e) {
             return new ArrayList<>();
         }
+    }
+
+    // =============================================================================================
+    // Async Operations
+    // =============================================================================================
+
+    /**
+     * Reads a file asynchronously.
+     *
+     * @param path the file path
+     * @return a CompletableFuture that completes with the file content
+     */
+    @NotNull
+    public static CompletableFuture<String> readStringAsync(@NotNull Path path) {
+        return CompletableFuture.supplyAsync(() -> readString(path), ASYNC_EXECUTOR);
+    }
+
+    /**
+     * Writes a file asynchronously.
+     *
+     * @param path the file path
+     * @param content the content to write
+     * @return a CompletableFuture that completes with success status
+     */
+    @NotNull
+    public static CompletableFuture<Boolean> writeStringAsync(@NotNull Path path,
+            @NotNull String content) {
+        return CompletableFuture.supplyAsync(() -> writeString(path, content), ASYNC_EXECUTOR);
+    }
+
+    /**
+     * Reads lines from a file asynchronously.
+     *
+     * @param path the file path
+     * @return a CompletableFuture that completes with the list of lines
+     */
+    @NotNull
+    public static CompletableFuture<List<String>> readLinesAsync(@NotNull Path path) {
+        return CompletableFuture.supplyAsync(() -> readLines(path), ASYNC_EXECUTOR);
+    }
+
+    /**
+     * Reads a JSON file asynchronously.
+     *
+     * @param path the file path
+     * @return a CompletableFuture that completes with the JSON object
+     */
+    @NotNull
+    public static CompletableFuture<JsonObject> readJsonAsync(@NotNull Path path) {
+        return CompletableFuture.supplyAsync(() -> readJson(path), ASYNC_EXECUTOR);
+    }
+
+    /**
+     * Writes a JSON file asynchronously.
+     *
+     * @param path the file path
+     * @param json the JSON object to write
+     * @return a CompletableFuture that completes with success status
+     */
+    @NotNull
+    public static CompletableFuture<Boolean> writeJsonAsync(@NotNull Path path,
+            @NotNull JsonObject json) {
+        return CompletableFuture.supplyAsync(() -> writeJson(path, json), ASYNC_EXECUTOR);
+    }
+
+    /**
+     * Copies a file asynchronously.
+     *
+     * @param source the source path
+     * @param destination the destination path
+     * @return a CompletableFuture that completes with success status
+     */
+    @NotNull
+    public static CompletableFuture<Boolean> copyAsync(@NotNull Path source,
+            @NotNull Path destination) {
+        return CompletableFuture.supplyAsync(() -> copy(source, destination), ASYNC_EXECUTOR);
     }
 }

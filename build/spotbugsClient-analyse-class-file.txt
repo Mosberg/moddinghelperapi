@@ -1,0 +1,13 @@
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\ModdingHelperAPIClient.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientChatHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientClipboardHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientContextHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientHudHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientKeybindingHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientParticleHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientScreenHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientSoundHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientTitleHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientToastHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\ClientTooltipHelper.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\client\dk\mosberg\client\util\GuiHelper.class

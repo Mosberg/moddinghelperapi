@@ -1,0 +1,8 @@
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\GsonInstanceTest$TestData.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\GsonInstanceTest.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\IdentifierHelperTest.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\ItemStackHelperTest.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\NBTHelperTest.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\TestConstants.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\TextHelperTest.class
+C:\Users\Rasmu\Documents\Projects\Minecraft\Mods\moddinghelperapi\build\classes\java\test\dk\mosberg\util\VectorHelperTest.class

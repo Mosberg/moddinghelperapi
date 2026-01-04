@@ -1,7 +1,9 @@
 package dk.mosberg.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -234,6 +236,109 @@ public final class CacheHelper {
          */
         public boolean isValid() {
             return get() != null;
+        }
+    }
+
+    /**
+     * An LRU (Least Recently Used) cache that evicts old entries when capacity is reached.
+     *
+     * @param <K> the key type
+     * @param <V> the value type
+     */
+    public static class LRUCache<K, V> {
+        private final Map<K, V> cache;
+        private final int maxSize;
+
+        /**
+         * Creates a new LRU cache with the specified maximum size.
+         *
+         * @param maxSize the maximum number of entries
+         */
+        public LRUCache(int maxSize) {
+            this.maxSize = maxSize;
+            this.cache = new LinkedHashMap<K, V>(maxSize, 0.75f, true) {
+                @Override
+                protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+                    return size() > LRUCache.this.maxSize;
+                }
+            };
+        }
+
+        /**
+         * Gets a value from the cache.
+         *
+         * @param key the key
+         * @return the cached value, or null if not present
+         */
+        @Nullable
+        public V get(@NotNull K key) {
+            return cache.get(key);
+        }
+
+        /**
+         * Puts a value into the cache.
+         *
+         * @param key the key
+         * @param value the value
+         */
+        public void put(@NotNull K key, @NotNull V value) {
+            cache.put(key, value);
+        }
+
+        /**
+         * Computes a value if absent from the cache.
+         *
+         * @param key the key
+         * @param mappingFunction the function to compute the value
+         * @return the cached or computed value
+         */
+        @Nullable
+        public V computeIfAbsent(@NotNull K key, @NotNull Function<K, V> mappingFunction) {
+            return cache.computeIfAbsent(key, mappingFunction);
+        }
+
+        /**
+         * Checks if the cache contains a key.
+         *
+         * @param key the key
+         * @return true if the key exists
+         */
+        public boolean containsKey(@NotNull K key) {
+            return cache.containsKey(key);
+        }
+
+        /**
+         * Removes a key from the cache.
+         *
+         * @param key the key to remove
+         */
+        public void remove(@NotNull K key) {
+            cache.remove(key);
+        }
+
+        /**
+         * Clears all entries from the cache.
+         */
+        public void clear() {
+            cache.clear();
+        }
+
+        /**
+         * Gets the current size of the cache.
+         *
+         * @return the number of entries
+         */
+        public int size() {
+            return cache.size();
+        }
+
+        /**
+         * Gets the maximum size of the cache.
+         *
+         * @return the maximum number of entries
+         */
+        public int maxSize() {
+            return maxSize;
         }
     }
 }
