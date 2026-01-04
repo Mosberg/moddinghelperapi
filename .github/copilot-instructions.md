@@ -4,12 +4,12 @@
 
 A **production-ready Fabric Mod** for Minecraft 1.21.11 providing a comprehensive API library for mod development. This is a **library mod** (not a feature mod)—designed as a dependency for other mods, not as a standalone feature.
 
-**Current Status**: Phase 2 Complete (10/15 improvements implemented)
+**Current Status**: Phase 3 Complete (23 helpers implemented)
 
-- **29 utility helpers** across multiple categories
-- **3 fluent builder classes** for common objects
+- **28 utility helpers** across multiple categories (+ 3 builders = 31 total)
+- **3 fluent builder classes** for common objects (TextBuilder, Vec3dBuilder, ItemStackBuilder)
 - **72 unit tests** with 61 passing (11 registry-dependent)
-- **2,600+ lines** of production code with full JavaDoc
+- **3,000+ lines** of production code with full JavaDoc
 - **Zero compilation errors** or null safety warnings
 
 **Key Characteristics:**
@@ -36,7 +36,7 @@ src/main/java/dk/mosberg/
 ├── ModdingHelperAPI.java         # Main mod entry point (implements ModInitializer)
 ├── datagen/
 │   └── ModdingHelperAPIDataGenerator.java  # Data generation entry point
-└── util/                          # 29 utility helpers organized by category
+└── util/                          # 28 utility helpers organized by category
     ├── builders/                  # Fluent builder pattern classes
     │   ├── TextBuilder.java       # Styled text component creation
     │   └── Vec3dBuilder.java      # 3D vector construction & transformation
@@ -210,7 +210,7 @@ All mod properties (name, version, author, etc.) are defined in [gradle.properti
 
 ### Adding Utility Classes (Primary Expansion Point)
 
-The `src/main/java/dk/mosberg/util/` directory has **29 helpers** and welcomes expansion:
+The `src/main/java/dk/mosberg/util/` directory has **28 helpers** and welcomes expansion:
 
 1. Create new utility class in `src/main/java/dk/mosberg/util/YourUtilityName.java`
 2. Keep utilities **server-safe** (no client-side rendering or screens)
@@ -474,10 +474,11 @@ events.filterEvent("player_join", event -> shouldProcess(event));
 
 ## Additional Resources
 
-- **[IMPROVEMENTS_GUIDE.md](../IMPROVEMENTS_GUIDE.md)** – Complete guide to all Phase 2 improvements with usage examples
-- **[PHASE_2_SUMMARY.md](../PHASE_2_SUMMARY.md)** – Detailed summary of Phase 2 implementation
-- **[PROJECT_STATUS.md](../PROJECT_STATUS.md)** – Current project status and roadmap
+- **[IMPROVEMENTS_GUIDE.md](../docs/markdown/IMPROVEMENTS_GUIDE.md)** – Complete guide to improvements with usage examples
+- **[PHASE_2_SUMMARY.md](../docs/markdown/PHASE_2_SUMMARY.md)** – Detailed summary of Phase 2 & 3 implementation
+- **[PROJECT_STATUS.md](../docs/markdown/PROJECT_STATUS.md)** – Current project status and roadmap
+- **[HELPER_QUICK_REFERENCE.md](../docs/markdown/HELPER_QUICK_REFERENCE.md)** – Quick API reference for all helpers
 
 ---
 
-**Last Updated**: January 4, 2026 | **Minecraft Version**: 1.21.11 | **Java**: 21 | **Phase**: 2 Complete (10/15)
+**Last Updated**: January 4, 2026 | **Minecraft Version**: 1.21.11 | **Java**: 21 | **Phase**: 3 Complete (28 helpers)
