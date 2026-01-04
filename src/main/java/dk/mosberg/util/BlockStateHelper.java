@@ -89,8 +89,8 @@ public final class BlockStateHelper {
             // Get valid values and clamp
             java.util.Collection<Integer> values = property.getValues();
             if (!values.isEmpty()) {
-                int min = values.stream().min(Integer::compare).orElse(value);
-                int max = values.stream().max(Integer::compare).orElse(value);
+                int min = values.stream().min((a, b) -> Integer.compare(a, b)).orElse(value);
+                int max = values.stream().max((a, b) -> Integer.compare(a, b)).orElse(value);
                 int clamped = Math.max(min, Math.min(max, value));
                 return state.with(property, clamped);
             }

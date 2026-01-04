@@ -38,9 +38,12 @@ public final class PersistentDataHelper {
      * @param <A> the attachment value type
      * @param <T> the target type
      */
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> void set(@NotNull T target,
-            @NotNull AttachmentType<A> type, @Nullable A value) {
-        target.setAttached(type, value);
+            @NotNull AttachmentType<@NotNull A> type, @Nullable A value) {
+        if (target != null) {
+            target.setAttached(type, value);
+        }
     }
 
     /**
@@ -53,9 +56,13 @@ public final class PersistentDataHelper {
      * @return the value, or null if not present
      */
     @Nullable
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> A get(@NotNull T target,
-            @NotNull AttachmentType<A> type) {
-        return target.getAttached(type);
+            @NotNull AttachmentType<@Nullable A> type) {
+        if (target != null) {
+            return target.getAttached(type);
+        }
+        return null;
     }
 
     /**
@@ -69,10 +76,14 @@ public final class PersistentDataHelper {
      * @return the value, or default if not present
      */
     @NotNull
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> A getOrDefault(@NotNull T target,
-            @NotNull AttachmentType<A> type, @NotNull A defaultValue) {
-        A value = target.getAttached(type);
-        return value != null ? value : defaultValue;
+            @NotNull AttachmentType<@Nullable A> type, @NotNull A defaultValue) {
+        if (target != null) {
+            A value = target.getAttached(type);
+            return value != null ? value : defaultValue;
+        }
+        return defaultValue;
     }
 
     /**
@@ -84,9 +95,10 @@ public final class PersistentDataHelper {
      * @param <T> the target type
      * @return true if the attachment is present
      */
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> boolean has(@NotNull T target,
-            @NotNull AttachmentType<A> type) {
-        return target.getAttached(type) != null;
+            @NotNull AttachmentType<@Nullable A> type) {
+        return target != null && target.getAttached(type) != null;
     }
 
     /**
@@ -99,8 +111,12 @@ public final class PersistentDataHelper {
      * @return the previous value, or null if not present
      */
     @Nullable
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> A remove(@NotNull T target,
-            @NotNull AttachmentType<A> type) {
+            @NotNull AttachmentType<@Nullable A> type) {
+        if (target == null) {
+            return null;
+        }
         A value = target.getAttached(type);
         target.setAttached(type, null);
         return value;
@@ -117,9 +133,13 @@ public final class PersistentDataHelper {
      * @return the existing or newly created value
      */
     @NotNull
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> A getOrCreate(@NotNull T target,
-            @NotNull AttachmentType<A> type,
+            @NotNull AttachmentType<@Nullable A> type,
             @NotNull java.util.function.Supplier<A> defaultSupplier) {
+        if (target == null) {
+            return defaultSupplier.get();
+        }
         A value = target.getAttached(type);
         if (value == null) {
             value = defaultSupplier.get();
@@ -138,9 +158,13 @@ public final class PersistentDataHelper {
      * @param <T> the target type
      * @return true if the value was modified
      */
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> boolean modify(@NotNull T target,
-            @NotNull AttachmentType<A> type,
+            @NotNull AttachmentType<@Nullable A> type,
             @NotNull java.util.function.UnaryOperator<A> modifier) {
+        if (target == null) {
+            return false;
+        }
         A value = target.getAttached(type);
         if (value != null) {
             target.setAttached(type, modifier.apply(value));
@@ -159,10 +183,14 @@ public final class PersistentDataHelper {
      * @param <A> the attachment value type
      * @param <T> the target type
      */
+    @SuppressWarnings("unchecked")
     public static <A, T extends AttachmentTarget> void modifyOrCreate(@NotNull T target,
-            @NotNull AttachmentType<A> type,
+            @NotNull AttachmentType<@Nullable A> type,
             @NotNull java.util.function.Supplier<A> defaultSupplier,
             @NotNull java.util.function.UnaryOperator<A> modifier) {
+        if (target == null) {
+            return;
+        }
         A value = target.getAttached(type);
         if (value == null) {
             value = defaultSupplier.get();
@@ -192,8 +220,12 @@ public final class PersistentDataHelper {
      * @param <T> the target type
      * @return the new value
      */
+    @SuppressWarnings("unchecked")
     public static <T extends AttachmentTarget> int incrementBy(@NotNull T target,
-            @NotNull AttachmentType<Integer> type, int amount) {
+            @NotNull AttachmentType<@Nullable Integer> type, int amount) {
+        if (target == null) {
+            return amount;
+        }
         Integer value = target.getAttached(type);
         int newValue = (value != null ? value : 0) + amount;
         target.setAttached(type, newValue);
