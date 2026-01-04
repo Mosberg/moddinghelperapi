@@ -70,6 +70,6 @@ public final class StatusEffectRegistryHelper {
      * @return true if the effect is beneficial
      */
     public static boolean isBeneficial(@NotNull StatusEffect statusEffect) {
-        return !statusEffect.isBeneficial(); // Benef = not harmful
+        return statusEffect.isBeneficial();
     }
 }

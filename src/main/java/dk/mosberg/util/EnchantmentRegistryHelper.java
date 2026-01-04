@@ -2,58 +2,38 @@ package dk.mosberg.util;
 
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 
 /**
  * Utility for enchantment operations. Provides placeholder methods for accessing enchantment
  * information.
  *
- * <p>
- * Note: In Minecraft 1.21.11, enchantment registry access is limited. Direct Registries access for
- * ENCHANTMENT is not available in the public API. This helper provides a consistent interface for
- * enchantment-related queries, with limitations documented in method JavaDoc.
- *
- * <p>
- * Example usage:
- *
- * <pre>
- * // Check if enchantment is registered (placeholder - always returns false in 1.21.11)
- * if (EnchantmentRegistryHelper.isEnchantmentRegistered("minecraft:efficiency")) {
- *     // This check is not functional in 1.21.11 due to API limitations
- * }
- * // Get enchantment count (placeholder - returns -1 to indicate unavailable)
- * int count = EnchantmentRegistryHelper.getEnchantmentCount();
- * </pre>
+ * Helper for enchantment registry lookups. Callers supply the registry, typically from
+ * {@code world.getRegistryManager().get(RegistryKeys.ENCHANTMENT)}.
  */
 public final class EnchantmentRegistryHelper {
     private EnchantmentRegistryHelper() {}
 
     /**
-     * Checks if an enchantment is registered.
+     * Gets an enchantment by identifier.
      *
-     * <p>
-     * Note: This method is a placeholder in 1.21.11. Direct enchantment registry access is not
-     * available through the public Minecraft API in this version.
-     *
-     * @param id the enchantment identifier
-     * @return always false in 1.21.11 (enchantment registry not accessible)
+     * @param id enchantment identifier (e.g., "minecraft:sharpness")
+     * @return the enchantment or null if not found
      */
-    public static boolean isEnchantmentRegistered(@NotNull String id) {
-        // Registries.ENCHANTMENT not available in 1.21.11 public API
-        return false;
+    public static Enchantment getEnchantment(@NotNull Registry<Enchantment> registry,
+            @NotNull String id) {
+        return registry.get(IdentifierHelper.of(id));
     }
 
-    /**
-     * Gets the total count of registered enchantments.
-     *
-     * <p>
-     * Note: This method is a placeholder in 1.21.11. The enchantment registry count cannot be
-     * reliably determined through the public API.
-     *
-     * @return -1 to indicate the count is unavailable in this version
-     */
-    public static int getEnchantmentCount() {
-        // Registries.ENCHANTMENT not available in 1.21.11 public API
-        return -1;
+    public static boolean isEnchantmentRegistered(@NotNull Registry<Enchantment> registry,
+            @NotNull String id) {
+        return registry.containsId(IdentifierHelper.of(id));
+    }
+
+    public static int getEnchantmentCount(@NotNull Registry<Enchantment> registry) {
+        return registry.size();
     }
 
     /**
@@ -67,8 +47,13 @@ public final class EnchantmentRegistryHelper {
      * @return "unknown" (enchantment registry not accessible in 1.21.11)
      */
     @NotNull
-    public static String getEnchantmentId(@NotNull Enchantment enchantment) {
-        // Registries.ENCHANTMENT not available in 1.21.11 public API
-        return "unknown";
+    public static String getEnchantmentId(@NotNull Registry<Enchantment> registry,
+            @NotNull Enchantment enchantment) {
+        var id = registry.getId(enchantment);
+        return id != null ? id.toString() : "unknown";
     }
+
+    /** Convenience registry key for enchantments. */
+    public static final RegistryKey<Registry<Enchantment>> ENCHANTMENT_REGISTRY_KEY =
+            RegistryKeys.ENCHANTMENT;
 }

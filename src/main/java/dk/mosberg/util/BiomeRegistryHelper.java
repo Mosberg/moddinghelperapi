@@ -1,37 +1,48 @@
 package dk.mosberg.util;
 
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
 
 /**
  * Utility for biome registry operations. Provides methods for accessing biomes and checking biome
  * properties.
  *
- * <p>
- * Note: Biomes are stored in dimension registries in 1.21.11, not in a global registry. This helper
- * provides placeholder methods for API consistency.
- *
- * <p>
- * Example usage:
- *
- * <pre>
- * // Biomes are accessed through dimension-specific registries in 1.21.11
- * // Use dimension helpers to access biome registries
- * </pre>
+ * Helper for biome registry lookups. Callers supply the registry, typically from
+ * {@code world.getRegistryManager().get(RegistryKeys.BIOME)}.
  */
 public final class BiomeRegistryHelper {
     private BiomeRegistryHelper() {}
 
     /**
-     * Gets the total count of registered biomes (placeholder for 1.21.11).
+     * Gets a biome by identifier.
      *
-     * <p>
-     * Note: In 1.21.11, biomes are per-dimension. This returns a placeholder value.
-     *
-     * @return a placeholder biome count
+     * @param id biome identifier (e.g., "minecraft:plains")
+     * @return the biome or null if not found
      */
-    public static int getBiomeCount() {
-        return 0; // Biomes stored per-dimension in 1.21.11
+    public static Biome getBiome(@NotNull Registry<Biome> registry, @NotNull String id) {
+        return registry.get(IdentifierHelper.of(id));
+    }
+
+    /**
+     * Checks if a biome is registered.
+     *
+     * @param id biome identifier
+     * @return true if the biome exists
+     */
+    public static boolean isBiomeRegistered(@NotNull Registry<Biome> registry, @NotNull String id) {
+        return registry.containsId(IdentifierHelper.of(id));
+    }
+
+    /**
+     * Gets the total count of registered biomes.
+     *
+     * @return biome count
+     */
+    public static int getBiomeCount(@NotNull Registry<Biome> registry) {
+        return registry.size();
     }
 
     /**
@@ -41,7 +52,11 @@ public final class BiomeRegistryHelper {
      * @return the registry ID as a string, or "unknown" if not found
      */
     @NotNull
-    public static String getBiomeId(@NotNull Biome biome) {
-        return "unknown"; // Biome registry access limited in 1.21.11
+    public static String getBiomeId(@NotNull Registry<Biome> registry, @NotNull Biome biome) {
+        var id = registry.getId(biome);
+        return id != null ? id.toString() : "unknown";
     }
+
+    /** Convenience registry key for biome lookups. */
+    public static final RegistryKey<Registry<Biome>> BIOME_REGISTRY_KEY = RegistryKeys.BIOME;
 }
