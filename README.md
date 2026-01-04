@@ -12,7 +12,7 @@
 
 **Start here if you want to use the helpers in your mod:**
 
-1. [HELPER_QUICK_REFERENCE.md](HELPER_QUICK_REFERENCE.md) - Copy-paste ready code examples
+1. [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md) - Copy-paste ready code examples
 
    - API overview for all 9 helpers
    - Common usage patterns
@@ -27,21 +27,21 @@
 
 **For comprehensive documentation and design details:**
 
-1. [ENHANCEMENT_SUMMARY.md](ENHANCEMENT_SUMMARY.md) - Complete enhancement details
+1. [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md) - Complete enhancement details
 
    - Each helper class reviewed in depth
    - New methods and improvements listed
    - Code patterns and examples
    - Next steps for Phase 3
 
-2. [PROJECT_STATUS.md](PROJECT_STATUS.md) - Project health and metrics
+2. [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md) - Project health and metrics
 
    - Build statistics
    - Code quality metrics
    - Verification checklist
    - Version information
 
-3. [MINECRAFT_1.21.11_API_REFERENCE.md](MINECRAFT_1.21.11_API_REFERENCE.md) - API notes
+3. [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md) - API notes
    - ItemStack NBT operations
    - Entity position handling
    - Player messaging
@@ -51,7 +51,7 @@
 
 **For understanding the broader project:**
 
-1. [HELPER_CLASSES.md](HELPER_CLASSES.md) - Original 27-class design document
+1. [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md) - Original 27-class design document
    - Phase 1 (completed): 9 core helpers
    - Phase 2 (extended): 6 specialized helpers
    - Phase 3 (planned): 11 additional helpers
@@ -183,8 +183,8 @@ String name = NBTHelper.getString(compound, "name", "Unknown");
 
 ### 4. Reference Documentation
 
-- Quick examples: See [HELPER_QUICK_REFERENCE.md](HELPER_QUICK_REFERENCE.md)
-- Detailed API: See [ENHANCEMENT_SUMMARY.md](ENHANCEMENT_SUMMARY.md)
+- Quick examples: See [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)
+- Detailed API: See [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)
 - Generated JavaDoc: In the `-javadoc.jar` or `build/docs/javadoc/`
 
 ---
@@ -226,25 +226,25 @@ String name = NBTHelper.getString(compound, "name", "Unknown");
 
 **📌 Quick Developers** (5 minutes)
 
-- Start with: [HELPER_QUICK_REFERENCE.md](HELPER_QUICK_REFERENCE.md)
+- Start with: [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)
 - Copy-paste code examples
 - Method signatures
 
 **📌 Thorough Learners** (20 minutes)
 
-- Read: [ENHANCEMENT_SUMMARY.md](ENHANCEMENT_SUMMARY.md)
+- Read: [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)
 - Understand each helper in depth
 - Learn design patterns
 
 **📌 Project Leads** (10 minutes)
 
-- Check: [PROJECT_STATUS.md](PROJECT_STATUS.md)
+- Check: [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md)
 - Review metrics and quality
 - Plan next phases
 
 **📌 API Specialists** (15 minutes)
 
-- Consult: [MINECRAFT_1.21.11_API_REFERENCE.md](MINECRAFT_1.21.11_API_REFERENCE.md)
+- Consult: [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md)
 - Understand 1.21.11 specific patterns
 - Learn compatibility notes
 
@@ -327,8 +327,8 @@ Every method includes:
 
 For usage questions, refer to:
 
-1. [HELPER_QUICK_REFERENCE.md](HELPER_QUICK_REFERENCE.md) for quick lookup
-2. [ENHANCEMENT_SUMMARY.md](ENHANCEMENT_SUMMARY.md) for detailed info
+1. [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md) for quick lookup
+2. [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md) for detailed info
 3. Generated JavaDoc (in `-javadoc.jar` or `build/docs/javadoc/`)
 
 ### Reporting Issues
@@ -344,8 +344,8 @@ When reporting issues, include:
 
 For Phase 3 implementation planning, see:
 
-- [HELPER_CLASSES.md](HELPER_CLASSES.md) for planned 11 additional helpers
-- [PROJECT_STATUS.md](PROJECT_STATUS.md) for next phase planning
+- [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md) for planned 11 additional helpers
+- [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md) for next phase planning
 
 ---
 
@@ -357,14 +357,14 @@ This project is a Fabric Mod library component. See LICENSE file for details.
 
 ## Quick Links
 
-| Document                                                                 | Purpose                     |
-| ------------------------------------------------------------------------ | --------------------------- |
-| [HELPER_QUICK_REFERENCE.md](HELPER_QUICK_REFERENCE.md)                   | 👤 Quick API examples       |
-| [ENHANCEMENT_SUMMARY.md](ENHANCEMENT_SUMMARY.md)                         | 📚 Detailed documentation   |
-| [PROJECT_STATUS.md](PROJECT_STATUS.md)                                   | 📊 Project metrics & health |
-| [HELPER_CLASSES.md](HELPER_CLASSES.md)                                   | 🗺️ Architecture & planning  |
-| [MINECRAFT_1.21.11_API_REFERENCE.md](MINECRAFT_1.21.11_API_REFERENCE.md) | 🔧 API-specific notes       |
-| [.github/copilot-instructions.md](.github/copilot-instructions.md)       | 🎯 Development guide        |
+| Document                                                                                | Purpose                     |
+| --------------------------------------------------------------------------------------- | --------------------------- |
+| [HELPER_QUICK_REFERENCE.md](/docs/markdown/HELPER_QUICK_REFERENCE.md)                   | 👤 Quick API examples       |
+| [ENHANCEMENT_SUMMARY.md](/docs/markdown/ENHANCEMENT_SUMMARY.md)                         | 📚 Detailed documentation   |
+| [PROJECT_STATUS.md](/docs/markdown/PROJECT_STATUS.md)                                   | 📊 Project metrics & health |
+| [HELPER_CLASSES.md](/docs/markdown/HELPER_CLASSES.md)                                   | 🗺️ Architecture & planning  |
+| [MINECRAFT_1.21.11_API_REFERENCE.md](/docs/markdown/MINECRAFT_1.21.11_API_REFERENCE.md) | 🔧 API-specific notes       |
+| [.github/copilot-instructions.md](.github/copilot-instructions.md)                      | 🎯 Development guide        |
 
 ---
 
