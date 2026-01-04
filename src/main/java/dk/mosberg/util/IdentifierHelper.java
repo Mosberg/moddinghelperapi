@@ -1,5 +1,7 @@
 package dk.mosberg.util;
 
+import java.util.Objects;
+import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.Identifier;
 
@@ -8,6 +10,9 @@ import net.minecraft.util.Identifier;
  * validating identifiers in the "namespace:path" format.
  */
 public final class IdentifierHelper {
+    private static final Pattern IDENTIFIER_PATTERN =
+            Pattern.compile("^[a-z0-9_.-]+:[a-z0-9_/.-]+$");
+
     private IdentifierHelper() {}
 
     /**
@@ -69,11 +74,7 @@ public final class IdentifierHelper {
      * @return true if the string is a valid identifier
      */
     public static boolean isValid(@NotNull String id) {
-        try {
-            of(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        Objects.requireNonNull(id);
+        return IDENTIFIER_PATTERN.matcher(id).matches();
     }
 }
