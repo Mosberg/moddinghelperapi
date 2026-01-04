@@ -2,7 +2,16 @@
 
 ## Project Overview
 
-A **Fabric Mod** for Minecraft 1.21.11 that provides a foundational API library to assist with mod development. This is a library mod designed as a dependency for other mods, not a feature mod.
+A **Fabric Mod** for Minecraft 1.21.11 that provides a foundational API library to assist with mod development. This is a **library mod** (not a feature mod)—designed as a dependency for other mods, not as a standalone feature.
+
+**Key Characteristics:**
+
+- Pure utility/API library with no gameplay features
+- Other mods will declare this as a dependency in their `fabric.mod.json`
+- Always expand the `util/` directory with reusable tools, not feature-specific logic
+- Avoid adding items, blocks, or other game content
+
+**Stack:**
 
 - **Framework**: Fabric Modding Framework
 - **Language**: Java 21
@@ -65,6 +74,15 @@ src/main/resources/
 
 ## Important Conventions
 
+### Environment Separation (Critical for Library Mods)
+
+Fabric splits code into **main** (server + client shared) and **client** (client-only) source sets:
+
+- **`src/main/java/dk/mosberg/`** – Server-safe utilities and APIs (loaded on both client and server)
+- **`src/client/java/dk/mosberg/client/`** – Client-only rendering, keybinds, screens (never referenced from `src/main/`)
+
+**Golden Rule**: Never import client classes from `src/client/` into `src/main/`. This breaks server installations.
+
 ### Package Naming
 
 - Root package: `dk.mosberg` (corresponds to `maven_group` in gradle.properties)
@@ -94,6 +112,32 @@ All mod properties (name, version, author, etc.) are defined in [gradle.properti
 
 ## Common Development Patterns
 
+### Adding Utility Classes (Primary Expansion Point)
+
+The `src/main/java/dk/mosberg/util/` directory is **empty and waiting for expansion**. This is where reusable tools belong:
+
+1. Create new utility class in `src/main/java/dk/mosberg/util/YourUtilityName.java`
+2. Keep utilities **server-safe** (no client-side rendering or screens)
+3. Write comprehensive JavaDoc for public APIs—other mods depend on these
+4. Add unit tests in `src/test/java/dk/mosberg/util/` for critical utilities
+
+**Example Utility Pattern:**
+
+```java
+package dk.mosberg.util;
+
+public final class JsonHelper {
+    private JsonHelper() {} // Prevent instantiation
+
+    /**
+     * Utility method description for library consumers.
+     */
+    public static <T> T parseJson(String json, Class<T> type) {
+        return GsonInstance.GSON.fromJson(json, type);
+    }
+}
+```
+
 ### Logging
 
 ```java
@@ -103,12 +147,6 @@ import org.slf4j.LoggerFactory;
 private static final Logger LOGGER = LoggerFactory.getLogger("moddinghelperapi");
 LOGGER.info("Message here");
 ```
-
-### Adding Utility Classes
-
-1. Create new class in `src/main/java/dk/mosberg/util/`
-2. Keep utilities common/server-side unless explicitly client-only
-3. Document public APIs for library consumers
 
 ### Client-Only Features
 
@@ -132,6 +170,14 @@ LOGGER.info("Message here");
 
 - Fabric Loom remaps Minecraft obfuscation automatically
 - All dependencies pulled from Fabric Maven repository (fabric maven.net, Terraformers, Shedaniel)
+
+## Critical Pitfalls to Avoid
+
+- **Don't add gameplay features** – This is a library mod. Game content (items, blocks, commands) belongs in separate feature mods that depend on this.
+- **Don't break server compatibility** – Never import `net.minecraft.client.*` or `net.fabricmc.api.ClientModInitializer` code in `src/main/`. Use `@Environment` annotations if uncertain.
+- **Don't update `fabric.mod.json` directly** – All metadata comes from `gradle.properties`. The JSON file is a template expanded during `processResources`.
+- **Don't ignore the mod ID constant** – Always use `ModdingHelperAPI.MOD_ID` instead of hardcoding `"moddinghelperapi"` for consistency.
+- **Don't forget to document public APIs** – Write JavaDoc on all public methods. This library will be used by other developers.
 
 ## Useful Build Artifacts
 
