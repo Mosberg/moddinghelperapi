@@ -47,9 +47,9 @@ src/main/resources/
 
 ### Key Configuration Files
 
-- **[gradle.properties](gradle.properties)** – Centralized version management (Minecraft, Fabric, Java 21)
-- **[build.gradle](build.gradle)** – Gradle build script with Fabric Loom configuration
-- **[src/main/resources/fabric.mod.json](src/main/resources/fabric.mod.json)** – Mod metadata with templated properties
+- **[gradle.properties](../gradle.properties)** – Centralized version management (Minecraft, Fabric, Java 21)
+- **[build.gradle](../build.gradle)** – Gradle build script with Fabric Loom configuration
+- **[src/main/resources/fabric.mod.json](../src/main/resources/fabric.mod.json)** – Mod metadata with templated properties
 
 ## Entry Points & Lifecycle
 
@@ -90,7 +90,7 @@ Fabric splits code into **main** (server + client shared) and **client** (client
 
 ### Mod Metadata
 
-All mod properties (name, version, author, etc.) are defined in [gradle.properties](gradle.properties) and **expanded during resource processing**. Update there, not in `fabric.mod.json` (which is a template).
+All mod properties (name, version, author, etc.) are defined in [gradle.properties](../gradle.properties) and **expanded during resource processing**. Update there, not in `fabric.mod.json` (which is a template).
 
 ### Build Caching & Performance
 
