@@ -1,10 +1,15 @@
 package dk.mosberg.client;
 
+import dk.mosberg.ModdingHelperAPI;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-public class ModdingHelperAPIClient implements ClientModInitializer {
+/** Client-only entrypoint for optional client hooks. */
+@Environment(EnvType.CLIENT)
+public final class ModdingHelperAPIClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		ModdingHelperAPI.LOGGER.info("Modding Helper API client hooks ready.");
 	}
 }
