@@ -3,15 +3,18 @@
 ########################################
 
 .gradle/
-build/
 out/
 classes/
-
-# Allow important build artifacts (keeps final JARs and docs)
-!build/libs/*.jar
-!build/docs/javadoc/
-!build/docs/javadoc/**
-
+datagen/
+devlibs/
+docs/
+generated/
+loom-cache/
+processIncludeJars/
+reports/
+resources/
+test-results/
+tmp/
 
 ########################################
 # IDEs & Editor Configuration
