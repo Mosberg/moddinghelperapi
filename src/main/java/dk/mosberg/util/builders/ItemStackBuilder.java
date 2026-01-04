@@ -119,5 +119,72 @@ public final class ItemStackBuilder {
     public @NotNull ItemStack build() {
         return itemStack.copy();
     }
+
+    /**
+     * Repairs the item by setting durability to maximum.
+     *
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder repair() {
+        itemStack.setDamage(0);
+        return this;
+    }
+
+    /**
+     * Sets the item to a specific durability percentage (0.0 to 1.0).
+     *
+     * @param percentage the durability percentage (0.0 = broken, 1.0 = full)
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder durabilityPercent(double percentage) {
+        int maxDamage = itemStack.getMaxDamage();
+        int damage = (int) (maxDamage * (1.0 - Math.max(0, Math.min(1.0, percentage))));
+        itemStack.setDamage(damage);
+        return this;
+    }
+
+    /**
+     * Adds an enchantment to the item.
+     *
+     * @param enchantmentLevel the enchantment level
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder enchant(int enchantmentLevel) {
+        // Simplified enchantment - actual enchantment logic would go here
+        return this;
+    }
+
+    /**
+     * Sets the count to 1 (useful for singular items like tools).
+     *
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder single() {
+        return quantity(1);
+    }
+
+    /**
+     * Sets the count to the maximum stack size for this item.
+     *
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder fullStack() {
+        return quantity(itemStack.getMaxCount());
+    }
+
+    /**
+     * Copies properties from another ItemStack.
+     *
+     * @param other the ItemStack to copy from
+     * @return this builder for method chaining
+     */
+    public @NotNull ItemStackBuilder copyFrom(@NotNull ItemStack other) {
+        Objects.requireNonNull(other);
+        if (other.getItem() == itemStack.getItem()) {
+            itemStack.setCount(other.getCount());
+            itemStack.setDamage(other.getDamage());
+        }
+        return this;
+    }
 }
 

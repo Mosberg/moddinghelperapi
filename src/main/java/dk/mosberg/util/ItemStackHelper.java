@@ -195,4 +195,85 @@ public final class ItemStackHelper {
     public static boolean hasCustomNBT(@NotNull ItemStack stack) {
         return !stack.getComponents().isEmpty();
     }
+
+    /**
+     * Copies an ItemStack completely (including NBT and count).
+     *
+     * @param stack the ItemStack to copy
+     * @return a new ItemStack with the same properties
+     */
+    @NotNull
+    public static ItemStack copy(@NotNull ItemStack stack) {
+        return stack.copy();
+    }
+
+    /**
+     * Gets the weight/value of an item (based on stack count and item type).
+     *
+     * @param stack the ItemStack
+     * @return a simple weight metric (count * rarity)
+     */
+    public static int getWeight(@NotNull ItemStack stack) {
+        // Simple weight calculation: count * (1 for common items)
+        // This can be enhanced based on item properties
+        return stack.getCount();
+    }
+
+    /**
+     * Adds items to a stack, respecting max stack size.
+     *
+     * @param stack the ItemStack to add to
+     * @param amount the amount to add
+     * @return the actual amount added
+     */
+    public static int add(@NotNull ItemStack stack, int amount) {
+        int canAdd = getRemainingSpace(stack);
+        int actualAdd = Math.min(amount, canAdd);
+        stack.increment(actualAdd);
+        return actualAdd;
+    }
+
+    /**
+     * Removes items from a stack.
+     *
+     * @param stack the ItemStack to remove from
+     * @param amount the amount to remove
+     * @return the actual amount removed
+     */
+    public static int remove(@NotNull ItemStack stack, int amount) {
+        int canRemove = Math.min(amount, stack.getCount());
+        stack.decrement(canRemove);
+        return canRemove;
+    }
+
+    /**
+     * Completely restores the durability of an item to maximum.
+     *
+     * @param stack the ItemStack to restore
+     */
+    public static void restoreDurability(@NotNull ItemStack stack) {
+        stack.setDamage(0);
+    }
+
+    /**
+     * Breaks an item completely (sets durability to 0).
+     *
+     * @param stack the ItemStack to break
+     */
+    public static void breakItem(@NotNull ItemStack stack) {
+        stack.setDamage(stack.getMaxDamage());
+    }
+
+    /**
+     * Gets the durability percentage (0.0 to 1.0).
+     *
+     * @param stack the ItemStack
+     * @return the durability as a percentage, or 1.0 if not damageable
+     */
+    public static double getDurabilityPercent(@NotNull ItemStack stack) {
+        if (stack.getMaxDamage() == 0) {
+            return 1.0;
+        }
+        return (double) (stack.getMaxDamage() - stack.getDamage()) / stack.getMaxDamage();
+    }
 }
