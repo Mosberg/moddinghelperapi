@@ -49,7 +49,7 @@ public final class RecipeHelper {
      * @param type the recipe type
      * @return immutable list of recipes of the given type
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "null"})
     public static <I extends RecipeInput, T extends Recipe<I>> List<RecipeEntry<T>> getAllOfType(
             @NotNull ServerRecipeManager manager, @NotNull RecipeType<T> type) {
         Stream<RecipeEntry<?>> stream = manager.values().stream();
