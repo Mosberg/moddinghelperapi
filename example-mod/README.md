@@ -249,11 +249,49 @@ build/libs/example-mod-1.0.0.jar
 
 This example mod is provided under the MIT license for educational purposes.
 
+## 🔗 Quick Start - Source Code Discovery
+
+### Verify Source Code Discovery in VSCode
+
+When moddinghelperapi is imported, all source code should be discoverable:
+
+1. **Ensure moddinghelperapi is published:**
+
+   ```bash
+   cd ../moddinghelperapi
+   ./gradlew.bat publishMavenJavaPublicationToMavenLocal
+   ```
+
+2. **Build example-mod:**
+
+   ```bash
+   ./gradlew.bat build
+   ```
+
+3. **Hover over any Modding Helper API class:**
+
+   ```java
+   import dk.mosberg.util.ItemStackHelper;  // ← Hover here to see source
+   ```
+
+   You should see a preview of the source code.
+
+4. **Ctrl+Click to open source file:**
+   The source will open in VSCode with full syntax highlighting.
+
+5. **If sources don't appear:**
+   - Open Command Palette: `Ctrl+Shift+P`
+   - Run: "Gradle: Refresh Gradle"
+   - Restart VSCode
+
+For detailed setup instructions, see [SETUP_SOURCE_DISCOVERY.md](../docs/markdown/SETUP_SOURCE_DISCOVERY.md)
+
 ## 🔗 Related
 
 - [Modding Helper API Documentation](../README.md)
 - [Helper Quick Reference](../docs/markdown/HELPER_QUICK_REFERENCE.md)
 - [Improvements Guide](../docs/markdown/IMPROVEMENTS_GUIDE.md)
+- [Source Discovery Setup](../docs/markdown/SETUP_SOURCE_DISCOVERY.md)
 
 ---
 

@@ -283,8 +283,8 @@ publishing {
     }
 
     repositories {
-        // Uncomment to publish to local Maven repository
-        // mavenLocal()
+        // Publish to local Maven repository for local development
+        mavenLocal()
 
         // Template for custom Maven repository
         // maven {
