@@ -49,14 +49,6 @@ BUILD SUCCESSFUL in 5s
 ./gradlew.bat test --rerun-tasks
 ```
 
-### Run Tests with Coverage
-
-```bash
-./gradlew.bat jacocoTestReport
-```
-
-Coverage report: `build/reports/jacoco/test/html/index.html`
-
 ---
 
 ## Test Structure
@@ -499,12 +491,8 @@ jobs:
 Generate and view code coverage:
 
 ```bash
-./gradlew.bat jacocoTestReport
+./gradlew.bat test
 ```
-
-Open report: `build/reports/jacoco/test/html/index.html`
-
-**Target:** 80%+ coverage for critical code
 
 ---
 

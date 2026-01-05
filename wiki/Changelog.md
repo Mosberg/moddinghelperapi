@@ -71,10 +71,6 @@ Version history and release notes for Modding Helper API.
 
 - ✅ Zero compilation errors or warnings
 - ✅ JUnit 5 test framework
-- ✅ JaCoCo code coverage reporting
-- ✅ Checkstyle code validation
-- ✅ SpotBugs static analysis
-- ✅ PMD code quality analysis
 - ✅ Configuration cache enabled (20% faster builds)
 
 #### 🎯 Minecraft Compatibility

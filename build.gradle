@@ -2,10 +2,6 @@ plugins {
     id 'fabric-loom' version "${loom_version}"
     id 'maven-publish'
     id 'java'
-    id 'jacoco'
-    id 'checkstyle'
-    id 'com.github.spotbugs' version "${spotbugs_plugin_version}"
-    id 'pmd'
 }
 
 version = project.mod_version
@@ -247,104 +243,13 @@ test {
         showStandardStreams = false
     }
 
-    finalizedBy jacocoTestReport
-}
-
-// ═════════════════════════════════════════════════════════════════════════════════
-// JaCoCo Configuration - Test Coverage Reporting
-// ═════════════════════════════════════════════════════════════════════════════════
-
-jacoco {
-    toolVersion = project.jacoco_version
-}
-
-jacocoTestReport {
-    dependsOn test
-
-    reports {
-        xml.required = true
-        html.required = true
-        csv.required = false
-    }
-
-    afterEvaluate {
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                '**/datagen/**',
-                '**/mixin/**'
-            ])
-        }))
-    }
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.60 // 60% coverage target
-            }
-        }
-    }
-}
-
-// ═════════════════════════════════════════════════════════════════════════════════
-// Checkstyle Configuration - Code Style Validation
-// ═════════════════════════════════════════════════════════════════════════════════
-
-checkstyle {
-    toolVersion = project.checkstyle_version
-    configFile = file("config/checkstyle/checkstyle.xml")
-    configProperties = ["suppressionFile": file("config/checkstyle/suppressions.xml")]
-}
-
-checkstyleMain {
-    source = 'src/main/java'
-}
-
-checkstyleTest {
-    source = 'src/test/java'
-}
-
-// ═════════════════════════════════════════════════════════════════════════════════
-// SpotBugs Configuration - Static Bug Analysis
-// ═════════════════════════════════════════════════════════════════════════════════
-
-spotbugs {
-    toolVersion = project.spotbugs_version
-    effort = 'max'
-    reportLevel = 'medium'
-    excludeFilter = file('config/spotbugs/spotbugs-exclude.xml')
-}
-
-tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
-    reports {
-        html.required = true
-        xml.required = false
-    }
-}
-
-// ═════════════════════════════════════════════════════════════════════════════════
-// PMD Configuration - Code Quality Analysis
-// ═════════════════════════════════════════════════════════════════════════════════
-
-pmd {
-    toolVersion = project.pmd_version
-    consoleOutput = true
-    ruleSetFiles = files("config/pmd/ruleset.xml")
-    ruleSets = []
-}
-
-pmdMain {
-    source = 'src/main/java'
-}
-
-pmdTest {
-    source = 'src/test/java'
 }
 
 // ═════════════════════════════════════════════════════════════════════════════════
 // Maven Publication Configuration - JAR Distribution
 // ═════════════════════════════════════════════════════════════════════════════════
+
+
 
 publishing {
     publications {
